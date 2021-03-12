@@ -30,6 +30,7 @@ async def send_live(cks: str, url: str, shop: str) -> None:
             if len(str_ck[i - 1]) > 0:
                 # print(str_ck[i-1])
                 # header
+                name=re.findall(r'(?<=_pin\=).+(?=;)',str_ck[i - 1])
                 header = {
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",
                     "Cookie": str_ck[i - 1],
@@ -41,22 +42,21 @@ async def send_live(cks: str, url: str, shop: str) -> None:
                 bean = json.loads(r.text)["data"]["couponQuota"]
                 if bean is None:
                     logging.info(f"{shop}啥也没中!")
-                    telegram_bot('第{}个账户'.format(i),f"{shop}啥也没中!")
+                    telegram_bot(name,f"{shop}啥也没中!")
                 else:
                     bean = int(bean[:-2])
                     logging.debug(bean)
                     global total_bean
                     total_bean += bean
                     logging.info(f"{shop}中了{bean}京豆.挂机开始共{total_bean}京东")
-                    telegram_bot('第{}个账户'.format(i),f"{shop}中了{bean}京豆.挂机开始共{total_bean}京东")
+                    telegram_bot(name,f"{shop}中了{bean}京豆.挂机开始共{total_bean}京东")
                 await asyncio.sleep(0.5)
 
 def telegram_bot(title, content):
     tg_bot_token =''
     tg_user_id = ''
     print("Telegram 推送开始")
-    send_data = {"chat_id": tg_user_id, "text": title +
-                 '\n\n'+content, "disable_web_page_preview": "true"}
+    send_data = {"chat_id": tg_user_id, "text": title +'\n\n'+content, "disable_web_page_preview": "true"}
     response = requests.post(
         url='https://api.telegram.org/bot%s/sendMessage' % (tg_bot_token), data=send_data)
     print(response.text)
