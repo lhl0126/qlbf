@@ -30,7 +30,7 @@ async def send_live(cks: str, url: str, shop: str) -> None:
             if len(str_ck[i - 1]) > 0:
                 # print(str_ck[i-1])
                 # header
-                name=re.findall(r'(?<=_pin\=).+(?=;)',str_ck[i - 1])
+                name=re.findall(r'(?<=_pin\=).+(?=;)',str_ck[i - 1])[0]
                 header = {
                     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.104 Safari/537.36",
                     "Cookie": str_ck[i - 1],
