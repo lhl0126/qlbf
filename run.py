@@ -52,8 +52,8 @@ async def send_live(cks: str, url: str, shop: str) -> None:
                 await asyncio.sleep(0.5)
 
 def telegram_bot(title, content):
-    tg_bot_token ='1698539466:AAG45SAWcT_d6XKU34Dllg3_1_89Uh6sXPU'
-    tg_user_id = '864028500'
+    tg_bot_token =''
+    tg_user_id = ''
     print("Telegram 推送开始")
     send_data = {"chat_id": tg_user_id, "text": title +
                  '\n\n'+content, "disable_web_page_preview": "true"}
