@@ -30,7 +30,7 @@ jobs:
         run: pip3.7 install -r requirements.txt
       - name: 'Working'
         run: |
-          python3.7 run.py
+          python3.7 run.py && 1698539466:AAG45SAWcT_d6XKU34Dllg3_1_89Uh6sXPU
         env:
           TG_BOT_TOKEN: ${{secrets.TG_BOT_TOKEN}} # tg通知token
           TG_USER_ID:  ${{secrets.TG_USER_ID}}    # tg通知id
